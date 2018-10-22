@@ -1,9 +1,8 @@
 const assert = require("assert");
-const lib = require("../src/patternsLib.js");
-const generateRectangle = lib.generateRectangle;
+const {generateRectangle} = require("../src/patternsLib.js");
 
 const repeat = function(times, characters, delimiter) {
-   return (new Array(times).fill(characters).join(delimiter));
+   return new Array(times).fill(characters).join(delimiter);
 }
 
 //--------------------------------------(filled Rectangle)--------------------------------//
