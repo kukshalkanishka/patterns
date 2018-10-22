@@ -1,4 +1,4 @@
-const lib = require("./src/generateRectangleLib.js");
+const lib = require("./src/generatePatternsLib.js");
 const generateRectangle = lib.generateRectangle;
 
 const main = function() {

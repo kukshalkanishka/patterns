@@ -1,4 +1,4 @@
-const lib = require("./src/generateDiamondLib.js");
+const lib = require("./src/generatePatternsLib.js");
 const generateDiamond = lib.generateDiamond;
 
 const main = function() {
