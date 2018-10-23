@@ -1,32 +1,10 @@
-const generateHyphenLine = function(rectangleWidth) {
-  let line = "";
-  for(let charPosition = 0; charPosition < rectangleWidth; charPosition++) {
-    line += "-";
-  }
-  return line;
-}
-
-const generateStarLine = function(rectangleWidth) {
-  let line = "";
-  for(let charPosition = 0; charPosition < rectangleWidth; charPosition++) {
-    line += "*";
-  }
-  return line;
-}
-
-const generateEmptyLine = function(rectangleWidth) {
-  let line = "";
-  for(let charPosition = 0; charPosition < rectangleWidth; charPosition++) {
-    let character = " ";
-    if(charPosition == 0 || charPosition == rectangleWidth -1){
-      character = "*";
-    } 
-
-    line += character;
-  }
-
-  return line;
-}
+const lib = require("./utilLib.js");
+let {generateHyphenLine} = lib;
+let {generateStarLine} = lib;
+let {generateEmptyLine} = lib;
+let {repeat} = lib;
+let {generateFilledRow} = lib;
+let {generateHollowRow} = lib;
 
 const generateFilledRect = function(rectangleWidth) {
   return generateStarLine(rectangleWidth);
@@ -64,6 +42,8 @@ const generateSelectedRect = function(rectangleType, rectangleWidth, rectangleHe
   return finalRectangle;
 }
 
+
+
 const generateRectangle = function(rectangleType, rectangleWidth, rectangleHeight) {
   let finalRectangle = "";
   let delimiter = "";
@@ -74,15 +54,6 @@ const generateRectangle = function(rectangleType, rectangleWidth, rectangleHeigh
   return finalRectangle;
 }
 
-exports.generateRectangle = generateRectangle;
-const repeatCharacters = function(numOfRepititions, charactor) {
-  let charRepitition = "";
-  for(let charposition = 0; charposition <= numOfRepititions; charposition++) {
-    charRepitition += charactor;
-  }
-  return charRepitition;
-}
-
 const generateTriangle = function(triangleHeight, triangleType) {
   let triangle = "";
   let delimiter = "";
@@ -90,14 +61,14 @@ const generateTriangle = function(triangleHeight, triangleType) {
   for(let rowNum = 0; rowNum < triangleHeight; rowNum++) {
 
     if(triangleType == "left") {
-      triangle += delimiter + repeatCharacters(rowNum,"*");
+      triangle += delimiter + repeat(rowNum,"*");
       delimiter = "\n"
     }
 
     if(triangleType == "right") {
       let numOfChars = triangleHeight - (rowNum +2);
-      triangle += delimiter + repeatCharacters(numOfChars," ");
-      triangle += repeatCharacters(rowNum,"*");
+      triangle += delimiter + repeat(numOfChars," ");
+      triangle += repeat(rowNum,"*");
       delimiter = "\n";
     }
   }
@@ -105,32 +76,15 @@ const generateTriangle = function(triangleHeight, triangleType) {
   return triangle;
 }
 
-exports.generateTriangle = generateTriangle;
-const repeat = function(times, character) {
-  let repeated = "";
-  for(charPosition = 0; charPosition <= times; charPosition++) {
-    repeated += character;
-  }
-  return repeated;
-}
-
-const generateFilledRow = function(rowNum, numOfChars) {
+const generateUpperAngledRow = function(rowNum, numOfChars) {
   let row = "";
   let spaceValue = (numOfChars - (rowNum +2));
   let spaceRepition = repeat(spaceValue/2, " ");
-  let starRepitition =  repeat(rowNum, "*");
-  row += spaceRepition + starRepitition;
-
-  return row;
-}
-
-const generateHollowRow = function(rowNum, numOfChars) {
-  let row = "";
-  let spaceValue = (numOfChars - (rowNum +2));
-  let spaceRepition = repeat(spaceValue/2, " ");
-  let starRepitition = repeat(0, "*");
+  let bckSlashRepitition = repeat(0, "/");
+  let frntSlashRepitition = repeat(0, "\\");
   let rowMiddleGap = repeat(rowNum -2 , " ");
-  row = spaceRepition + starRepitition + rowMiddleGap + starRepitition;
+  let starRepitition = repeat(0,"*");
+  row = spaceRepition + bckSlashRepitition + rowMiddleGap + frntSlashRepitition;
   if(rowNum == 0) {
     row = spaceRepition +starRepitition;
   }
@@ -149,23 +103,6 @@ const generateLowerAngleRow = function(rowNum, numOfChars) {
   row = spaceRepition + frntSlashRepitition + rowMiddleGap + bckSlashRepitition;
   if(rowNum == 0) {
     row = spaceRepition +starRepitition;
-  } 
-
-  return row;
-}
-
-
-const generateUpperAngledRow = function(rowNum, numOfChars) {
-  let row = "";
-  let spaceValue = (numOfChars - (rowNum +2));
-  let spaceRepition = repeat(spaceValue/2, " ");
-  let bckSlashRepitition = repeat(0, "/");
-  let frntSlashRepitition = repeat(0, "\\");
-  let rowMiddleGap = repeat(rowNum -2 , " ");
-  let starRepitition = repeat(0,"*");
-  row = spaceRepition + bckSlashRepitition + rowMiddleGap + frntSlashRepitition;
-  if(rowNum == 0) {
-    row = spaceRepition +starRepitition;
   }
 
   return row;
@@ -179,13 +116,13 @@ const generateAngledDiamond = function(height) {
   for(let rowNum = 0; rowNum < height -2; rowNum +=2 ) {
     let upperRow = generateUpperAngledRow(rowNum , height);
     let lowerRow = generateLowerAngleRow(rowNum , height);
-    upperTriangle += delimiter + upperRow; 
+    upperTriangle += delimiter + upperRow;
     lowerTriangle = lowerRow + delimiter + lowerTriangle;
     delimiter = "\n";
     middleRow = generateHollowRow(height -1, height) ;
   }
   let diamond = upperTriangle + "\n" + middleRow + "\n" + lowerTriangle;
-  return diamond; 
+  return diamond;
 }
 
 const generateDiamond = function(height, type) {
@@ -222,4 +159,6 @@ const generateDiamond = function(height, type) {
   return diamond;
 }
 
+exports.generateTriangle = generateTriangle;
 exports.generateDiamond = generateDiamond;
+exports.generateRectangle = generateRectangle;
