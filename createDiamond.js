@@ -4,7 +4,8 @@ const {generateDiamond} = lib;
 const {readDiamondArgs} = usrInputLib;
 
 const main = function() {
-  let diamondArgs = readDiamondArgs();
+  let userInput = process;
+  let diamondArgs = readDiamondArgs(userInput);
   let output = generateDiamond(diamondArgs);
   console.log(output);
 }
