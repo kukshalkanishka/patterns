@@ -1,11 +1,11 @@
-const lib = require("./src/generatePatternsLib.js");
+const lib = require("./src/patternsLib.js");
+const usrInputLib = require("./src/userInputReaderLib.js");
 const generateRectangle = lib.generateRectangle;
+const {readRectangleArgs} = usrInputLib;
 
 const main = function() {
-  let rectangleType = process.argv[2];
-  let rectangleWidth = +process.argv[3];
-  let rectangleHeight = +process.argv[4];
-  let output = generateRectangle(rectangleType, rectangleWidth, rectangleHeight);
+  let rectangleArgs = readRectangleArgs();
+  let output = generateRectangle(rectangleArgs);
   console.log(output);
 }
 

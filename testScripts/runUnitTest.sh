@@ -1,4 +1,4 @@
 #! /bin/bash
 
-node ../test/patternsLibTest.js
-node ../test/utilLibTest.js
+node ./test/patternsLibTest.js
+node ./test/utilLibTest.js

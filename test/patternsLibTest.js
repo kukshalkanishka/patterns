@@ -12,71 +12,97 @@ const repeat = function(times, characters, delimiter) {
 
 const oneStar = repeat(1,"*", "");
 const filledRect_1_3 = repeat(3, oneStar, "\n");
-assert.equal(generateRectangle("filled",1,3),filledRect_1_3);
+let rectangleArgs = {rectangleType: "filled", rectangleWidth: 1, rectangleHeight : 3}; 
+assert.equal(generateRectangle(rectangleArgs),filledRect_1_3);
 
 const threeStars = repeat(3, "*", "");
 const filledRect_3_3 = repeat(3, threeStars, "\n"); 
-assert.equal(generateRectangle("filled",3,3),filledRect_3_3);
+rectangleArgs = {rectangleType: "filled", rectangleWidth: 3, rectangleHeight : 3}; 
+assert.equal(generateRectangle(rectangleArgs),filledRect_3_3);
 
 const filledRect_3_8 = repeat(8, threeStars, "\n"); 
-assert.equal(generateRectangle("filled",3,8),filledRect_3_8);
+rectangleArgs = {rectangleType: "filled", rectangleWidth: 3, rectangleHeight : 8}; 
+assert.equal(generateRectangle(rectangleArgs),filledRect_3_8);
 
 //--------------------------------------(Empty Rectangle)-------------------------------//
 
 const emptyRect_3_2 = repeat(2, threeStars, "\n");
-assert.equal(generateRectangle("empty",3,2),emptyRect_3_2);
+rectangleArgs = {rectangleType: "empty", rectangleWidth: 3, rectangleHeight : 2}; 
+
+assert.equal(generateRectangle(rectangleArgs), emptyRect_3_2);
 
 let middle3Rows  = repeat(3, "* *", "\n");
 const emptyRect_3_5 = threeStars + "\n" + middle3Rows + "\n" + threeStars;
-assert.equal(generateRectangle("empty",3,5),emptyRect_3_5);
+rectangleArgs = {rectangleType: "empty", rectangleWidth: 3, rectangleHeight : 5}; 
+
+assert.equal(generateRectangle(rectangleArgs), emptyRect_3_5);
 
 const fiveStars = repeat(5, "*", "");
 let middle4Rows = repeat(4, "*   *", "\n"); 
 const emptyRect_5_6 = fiveStars + "\n" + middle4Rows + "\n" + fiveStars;
-assert.equal(generateRectangle("empty",5,6),emptyRect_5_6);
+rectangleArgs = {rectangleType: "empty", rectangleWidth: 5, rectangleHeight : 6}; 
+
+assert.equal(generateRectangle(rectangleArgs), emptyRect_5_6);
 
 const eightStars = repeat(8, "*", "");
 middle3Rows = repeat(3, "*      *", "\n"); 
 const emptyRect_8_5 = eightStars + "\n" + middle3Rows + "\n" + eightStars;
-assert.equal(generateRectangle("empty",8,5),emptyRect_8_5);
+rectangleArgs = {rectangleType: "empty", rectangleWidth: 8, rectangleHeight : 5}; 
+
+assert.equal(generateRectangle(rectangleArgs), emptyRect_8_5);
 
 //--------------------------------------(Alternating rectangle)--------------------------------//
 
 const threeHyphens = repeat(3, "-", ""); 
 let alternateRect_3_5 = threeStars + "\n" + threeHyphens + "\n" + threeStars + "\n" + threeHyphens + "\n" + threeStars;
-assert.equal(generateRectangle("alternating",3,5), alternateRect_3_5);
+rectangleArgs = {rectangleType: "alternating", rectangleWidth: 3, rectangleHeight : 5}; 
+
+assert.equal(generateRectangle(rectangleArgs), alternateRect_3_5);
 
 const fiveHyphens = repeat(5, "-", "");
-const alternateRect_5_6  = fiveStars + "\n" + fiveHyphens + "\n" + fiveStars + "\n" + fiveHyphens + "\n" + fiveStars + "\n" +fiveHyphens;
-assert.equal(generateRectangle("alternating",5,6), alternateRect_5_6);
+let alternateRect_5_6  = fiveStars + "\n" + fiveHyphens + "\n" + fiveStars 
+alternateRect_5_6 += "\n" + fiveHyphens + "\n" + fiveStars + "\n" +fiveHyphens;
+rectangleArgs = {rectangleType: "alternating", rectangleWidth: 5, rectangleHeight : 6}; 
+
+assert.equal(generateRectangle(rectangleArgs), alternateRect_5_6);
 
 const eightHyphens = repeat(8, "-", ""); 
 const alternateRect_8_5  = eightStars + "\n" + eightHyphens + "\n" + eightStars + "\n" + eightHyphens + "\n" + eightStars;
-assert.equal(generateRectangle("alternating",8,5), alternateRect_8_5);
+rectangleArgs = {rectangleType: "alternating", rectangleWidth: 8, rectangleHeight : 5}; 
+
+assert.equal(generateRectangle(rectangleArgs), alternateRect_8_5);
 
 //-----------------------------------------(Left triangle)-------------------------------------------------//
 
 const twoStars = repeat(2, "*", "");
 let expectedTriangle = oneStar + "\n" + twoStars + "\n" + threeStars;
-assert.equal(generateTriangle(3, "left"),expectedTriangle);
+triangleArgs = {triangleType: "left", triangleHeight : 3}; 
+
+assert.equal(generateTriangle(triangleArgs), expectedTriangle);
 
 const fourStars = repeat(4, "*", "");
 expectedTriangle = oneStar + "\n" + twoStars + "\n" + threeStars + "\n" + fourStars + "\n" + fiveStars;
-assert.equal(generateTriangle(5, "left"),expectedTriangle);
+triangleArgs = {triangleType: "left", triangleHeight : 5}; 
+
+assert.equal(generateTriangle(triangleArgs), expectedTriangle);
 
 //-----------------------------------------(Right triangle)-------------------------------------------------//
 
 expectedTriangle  = "  *" + "\n"; 
 expectedTriangle += " **" + "\n"; 
 expectedTriangle += "***";
-assert.equal(generateTriangle(3, "right"),expectedTriangle);
+triangleArgs = {triangleType: "right", triangleHeight : 3}; 
+
+assert.equal(generateTriangle(triangleArgs), expectedTriangle);
 
 expectedTriangle  = "    *" + "\n"; 
 expectedTriangle += "   **" + "\n";
 expectedTriangle += "  ***" + "\n";
 expectedTriangle += " ****" + "\n";
 expectedTriangle += "*****";
-assert.equal(generateTriangle(5, "right"),expectedTriangle);
+triangleArgs = {triangleType: "right", triangleHeight : 5}; 
+
+assert.equal(generateTriangle(triangleArgs), expectedTriangle);
 
 //-----------------------------------------(Filled Diamond)-------------------------------------------------//
 
@@ -87,7 +113,9 @@ let lowerHalfDiamond = " ***" + "\n";
 lowerHalfDiamond    += "  *";
 
 let expectedDiamond = upperHalfDiamond + "\n" + fiveStars + "\n" + lowerHalfDiamond;
-assert.equal(generateDiamond(5, "filled"),expectedDiamond);
+diamondArgs = {diamondType: "filled", diamondHeight : 5}; 
+
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 upperHalfDiamond  = "   *" + "\n"; 
 upperHalfDiamond += "  ***" + "\n"; 
@@ -100,7 +128,9 @@ lowerHalfDiamond += "   *";
 const sevenStars = repeat(7, "*", "");
 
 expectedDiamond = upperHalfDiamond + "\n" + sevenStars + "\n" + lowerHalfDiamond;
-assert.equal(generateDiamond(7, "filled"),expectedDiamond);
+diamondArgs = {diamondType: "filled", diamondHeight : 7}; 
+
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 upperHalfDiamond  = "    *" + "\n";
 upperHalfDiamond += "   ***" + "\n"; 
@@ -115,8 +145,9 @@ lowerHalfDiamond += "    *";
 const nineStars = repeat(9, "*", "");
 
 expectedDiamond = upperHalfDiamond + "\n" + nineStars + "\n" + lowerHalfDiamond;
+diamondArgs = {diamondType: "filled", diamondHeight : 9}; 
 
-assert.equal(generateDiamond(9, "filled"),expectedDiamond);
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 //-----------------------------------------(Hollow Diamond)-------------------------------------------------//
 
@@ -127,7 +158,9 @@ lowerHalfDiamond  = " * *" + "\n";
 lowerHalfDiamond += "  *";
 
 expectedDiamond = upperHalfDiamond + "\n" + "*   *"+ "\n" + lowerHalfDiamond;
-assert.equal(generateDiamond(5, "hollow"),expectedDiamond);
+diamondArgs = {diamondType: "hollow", diamondHeight : 5}; 
+
+assert.equal(generateDiamond(diamondArgs),expectedDiamond);
 
 upperHalfDiamond  = "   *" + "\n"; 
 upperHalfDiamond += "  * *" + "\n"; 
@@ -138,7 +171,9 @@ lowerHalfDiamond += "  * *" + "\n";
 lowerHalfDiamond += "   *";
 
 expectedDiamond = upperHalfDiamond + "\n" + "*     *" + "\n" + lowerHalfDiamond;
-assert.equal(generateDiamond(7, "hollow"),expectedDiamond);
+diamondArgs = {diamondType: "hollow", diamondHeight : 7};
+
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 upperHalfDiamond  = "    *" + "\n";
 upperHalfDiamond += "   * *" + "\n"; 
@@ -151,8 +186,9 @@ lowerHalfDiamond += "   * *" + "\n";
 lowerHalfDiamond += "    *";
 
 expectedDiamond = upperHalfDiamond + "\n" + "*       *" + "\n" + lowerHalfDiamond;
+diamondArgs = {diamondType: "hollow", diamondHeight : 9};
 
-assert.equal(generateDiamond(9, "hollow"),expectedDiamond);
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 //----------------------------------------(Angled diamond)--------------------------------------//
 
@@ -163,7 +199,9 @@ lowerHalfDiamond = " \\ /" + "\n";
 lowerHalfDiamond += "  *";
 
 expectedDiamond = upperHalfDiamond + "\n" + "*   *"+ "\n" + lowerHalfDiamond;
-assert.equal(generateDiamond(5, "angled"),expectedDiamond);
+diamondArgs = {diamondType: "angled", diamondHeight : 5};
+
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 upperHalfDiamond  = "   *" + "\n"; 
 upperHalfDiamond += "  / \\" + "\n"; 
@@ -174,7 +212,9 @@ lowerHalfDiamond += "  \\ /" + "\n";
 lowerHalfDiamond  += "   *";
 
 expectedDiamond = upperHalfDiamond + "\n" + "*     *" + "\n" + lowerHalfDiamond;
-assert.equal(generateDiamond(7, "angled"),expectedDiamond);
+diamondArgs = {diamondType: "angled", diamondHeight : 7};
+
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);
 
 upperHalfDiamond  = "    *" + "\n";
 upperHalfDiamond += "   / \\" + "\n"; 
@@ -187,5 +227,6 @@ lowerHalfDiamond += "   \\ /" + "\n";
 lowerHalfDiamond += "    *";
 
 expectedDiamond = upperHalfDiamond + "\n" + "*       *" + "\n" + lowerHalfDiamond;
+diamondArgs = {diamondType: "angled", diamondHeight : 9};
 
-assert.equal(generateDiamond(9, "angled"),expectedDiamond);
+assert.equal(generateDiamond(diamondArgs), expectedDiamond);

@@ -44,9 +44,13 @@ const generateSelectedRect = function(rectangleType, rectangleWidth, rectangleHe
 
 
 
-const generateRectangle = function(rectangleType, rectangleWidth, rectangleHeight) {
+const generateRectangle = function(rectangleArgs) {
   let finalRectangle = "";
   let delimiter = "";
+  let {rectangleType} = rectangleArgs;
+  let {rectangleWidth} = rectangleArgs;
+  let {rectangleHeight} = rectangleArgs;
+
   for(let lineNumber=0; lineNumber < rectangleHeight; lineNumber++) {
     finalRectangle += delimiter + generateSelectedRect(rectangleType, rectangleWidth, rectangleHeight, lineNumber); 
     delimiter = "\n";
@@ -54,9 +58,11 @@ const generateRectangle = function(rectangleType, rectangleWidth, rectangleHeigh
   return finalRectangle;
 }
 
-const generateTriangle = function(triangleHeight, triangleType) {
+const generateTriangle = function(triangleArgs){
   let triangle = "";
   let delimiter = "";
+  let {triangleType} = triangleArgs;
+  let {triangleHeight} = triangleArgs;
 
   for(let rowNum = 0; rowNum < triangleHeight; rowNum++) {
 
@@ -125,34 +131,36 @@ const generateAngledDiamond = function(height) {
   return diamond;
 }
 
-const generateDiamond = function(height, type) {
+const generateDiamond = function(diamondArgs) {
   let delimiter = "";
   let upperTriangle = "";
   let lowerTriangle = "";
   let middleRow = "";
-  let row = generateFilledRow(0, height);
   let diamond = "";
+  let {diamondType} = diamondArgs;
+  let {diamondHeight} = diamondArgs;
+  let row = generateFilledRow(0, diamondHeight);
 
-  for(let rowNum = 0; rowNum < height -2; rowNum +=2 ) {
-    if(type == "filled") { 
-      row = generateFilledRow(rowNum , height);
-      middleRow = repeat(height -1,"*");
+  for(let rowNum = 0; rowNum < diamondHeight -2; rowNum +=2 ) {
+    if(diamondType == "filled") { 
+      row = generateFilledRow(rowNum , diamondHeight);
+      middleRow = repeat(diamondHeight -1,"*");
     }
 
-    if(type == "hollow") {
-      row = generateHollowRow(rowNum, height);
-      middleRow = generateHollowRow(height -1 , height); 
+    if(diamondType == "hollow") {
+      row = generateHollowRow(rowNum, diamondHeight);
+      middleRow = generateHollowRow(diamondHeight -1 , diamondHeight); 
     } 
 
     upperTriangle += delimiter + row;
     lowerTriangle  = row + delimiter + lowerTriangle;
     delimiter = "\n";
   }
-  if(type == "angled") {
-    diamond = generateAngledDiamond(height);
+  if(diamondType == "angled") {
+    diamond = generateAngledDiamond(diamondHeight);
   }
 
-  if(type != "angled"){
+  if(diamondType != "angled"){
     diamond = upperTriangle +"\n" + middleRow +"\n" + lowerTriangle; 
   }
 

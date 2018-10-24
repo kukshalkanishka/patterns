@@ -1,10 +1,11 @@
-const lib = require("./src/generatePatternsLib.js");
-const generateDiamond = lib.generateDiamond;
+const lib = require("./src/patternsLib.js");
+const usrInputLib = require("./src/userInputReaderLib.js");
+const {generateDiamond} = lib;
+const {readDiamondArgs} = usrInputLib;
 
 const main = function() {
-  let type = process.argv[2];
-  let height = +process.argv[3];
-  let output = generateDiamond(height, type);
+  let diamondArgs = readDiamondArgs();
+  let output = generateDiamond(diamondArgs);
   console.log(output);
 }
 

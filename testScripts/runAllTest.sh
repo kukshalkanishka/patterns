@@ -1,4 +1,4 @@
 set -e
-./run_test.sh ./createRectangle.js ./test/patternsInput/rectangleInput ./test/expectedOutput/rectangleOutput
-./run_test.sh ./createTriangle.js ./test/patternsInput/triangleInput ./test/expectedOutput/trianlgeOutput
-./run_test.sh ./createDiamond.js ./test/patternsInput/diamondInput ./test/expectedOutput/diamondOutput
+./testScripts/run_test.sh ./createRectangle.js ./appTestData/patternsInput/rectangleInput ./appTestData/expectedOutput/rectangleOutput
+./testScripts/run_test.sh ./createTriangle.js ./appTestData/patternsInput/triangleInput ./appTestData/expectedOutput/trianlgeOutput
+./testScripts/run_test.sh ./createDiamond.js ./appTestData/patternsInput/diamondInput ./appTestData/expectedOutput/diamondOutput

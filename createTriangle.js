@@ -1,11 +1,11 @@
-const lib = require("./src/generatePatternsLib.js");
-const generateTriangle = lib.generateTriangle;
+const lib = require("./src/patternsLib.js");
+const usrInputLib = require("./src/userInputReaderLib.js");
+const {generateTriangle} = lib;
+const {readTriangleArgs} = usrInputLib;
 
 const main = function() {
-
-  let triangleType = process.argv[2];
-  let triangleHeight = +process.argv[3];
-  let output = generateTriangle(triangleHeight, triangleType);
+  let triangleArgs = readTriangleArgs();
+  let output = generateTriangle(triangleArgs);
   console.log(output);
 }
 
