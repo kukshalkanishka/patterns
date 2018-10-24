@@ -4,8 +4,8 @@ const {generateTriangle} = lib;
 const {readTriangleArgs} = usrInputLib;
 
 const main = function() {
-  let userInput = process;
-  let triangleArgs = readTriangleArgs(userInput);
+  let userArgs = process;
+  let triangleArgs = readTriangleArgs(userArgs);
   let output = generateTriangle(triangleArgs);
   console.log(output);
 }

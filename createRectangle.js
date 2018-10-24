@@ -4,8 +4,8 @@ const {generateRectangle} = lib;
 const {readRectangleArgs} = usrInputLib;
 
 const main = function() {
-  let userInput = process;
-  let rectangleArgs = readRectangleArgs(userInput);
+  let userArgs = process;
+  let rectangleArgs = readRectangleArgs(userArgs);
   let output = generateRectangle(rectangleArgs);
   console.log(output);
 }
