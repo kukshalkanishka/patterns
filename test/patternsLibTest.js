@@ -13,15 +13,18 @@ const repeat = function(times, characters, delimiter) {
 const oneStar = repeat(1,"*", "");
 const filledRect_1_3 = repeat(3, oneStar, "\n");
 let rectangleArgs = {rectangleType: "filled", rectangleWidth: 1, rectangleHeight : 3}; 
+
 assert.equal(generateRectangle(rectangleArgs),filledRect_1_3);
 
 const threeStars = repeat(3, "*", "");
 const filledRect_3_3 = repeat(3, threeStars, "\n"); 
 rectangleArgs = {rectangleType: "filled", rectangleWidth: 3, rectangleHeight : 3}; 
+
 assert.equal(generateRectangle(rectangleArgs),filledRect_3_3);
 
 const filledRect_3_8 = repeat(8, threeStars, "\n"); 
 rectangleArgs = {rectangleType: "filled", rectangleWidth: 3, rectangleHeight : 8}; 
+
 assert.equal(generateRectangle(rectangleArgs),filledRect_3_8);
 
 //--------------------------------------(Empty Rectangle)-------------------------------//

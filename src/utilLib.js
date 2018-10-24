@@ -60,9 +60,31 @@ const generateHollowRow = function(rowNum, numOfChars) {
   return row;
 }
 
+const readTriangleArgs = function(userArg){ 
+  let triangleType = userArg[2];
+  let triangleHeight = +userArg[3];
+  return {triangleType, triangleHeight};
+}
+
+const readRectangleArgs = function(userArg) {
+  let rectangleType = userArg[2];
+  let rectangleWidth = +userArg[3];
+  let rectangleHeight = +userArg[4];
+  return {rectangleType, rectangleWidth, rectangleHeight};
+}
+
+const readDiamondArgs= function(userArg) {
+  let diamondType = userArg[2];
+  let diamondHeight = +userArg[3];
+  return {diamondType, diamondHeight};
+}
+
+exports.readRectangleArgs = readRectangleArgs;
+exports.readDiamondArgs = readDiamondArgs;
 exports.generateStarLine = generateStarLine;
 exports.generateHyphenLine = generateHyphenLine;
 exports.generateEmptyLine = generateEmptyLine;
 exports.repeat = repeat;
 exports.generateFilledRow = generateFilledRow;
 exports.generateHollowRow = generateHollowRow; 
+exports.readTriangleArgs = readTriangleArgs;

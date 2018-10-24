@@ -6,6 +6,9 @@ const {generateEmptyLine} = lib;
 const {repeat} = lib;
 const {generateFilledRow} = lib;
 const {generateHollowRow} = lib;
+const {readTriangleArgs} = lib;
+const {readDiamondArgs} = lib;
+const {readRectangleArgs} = lib;
 
 //=============================(repeat hyphens)==============================//
 
@@ -46,3 +49,19 @@ assert.equal(generateHollowRow(1, 5),"  **");
 assert.equal(generateHollowRow(3, 5)," *  *");
 assert.equal(generateHollowRow(11, 13)," *          *");
 
+//=============================(read triangle arguments)====================//
+
+assert.deepEqual(readTriangleArgs([,,"left", 4]),{triangleType : "left", triangleHeight : 4});
+assert.deepEqual(readTriangleArgs([,,"right", 4]),{triangleType : "right", triangleHeight : 4});
+
+//=============================(read diamond arguments)====================//
+
+assert.deepEqual(readDiamondArgs([,,"filled", 4]),{diamondType : "filled", diamondHeight : 4});
+assert.deepEqual(readDiamondArgs([,,"holllow", 4]),{diamondType : "holllow", diamondHeight : 4});
+assert.deepEqual(readDiamondArgs([,,"angled", 4]),{diamondType : "angled", diamondHeight : 4});
+
+//=============================(read rectangle arguments)====================//
+
+assert.deepEqual(readRectangleArgs([,,"filled", 4, 3]),{rectangleType : "filled", rectangleWidth: 4 , rectangleHeight : 3});
+assert.deepEqual(readRectangleArgs([,,"holllow", 4, 3]),{rectangleType : "holllow" , rectangleWidth: 4, rectangleHeight : 3});
+assert.deepEqual(readRectangleArgs([,,"alternating", 4, 3]),{rectangleType : "alternating" , rectangleWidth:4, rectangleHeight : 3});
