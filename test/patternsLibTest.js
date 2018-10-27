@@ -11,101 +11,109 @@ const repeat = function(times, characters, delimiter) {
 //--------------------------------------(filled Rectangle)--------------------------------//
 
 const oneStar = repeat(1,"*", "");
-const filledRect_1_3 = repeat(3, oneStar, "\n");
+const filledRect_1_3 = [oneStar, oneStar, oneStar];
 let rectangleArgs = {rectangleType: "filled", rectangleWidth: 1, rectangleHeight : 3}; 
 
-assert.equal(generateRectangle(rectangleArgs),filledRect_1_3);
+assert.deepEqual(generateRectangle(rectangleArgs),filledRect_1_3);
 
 const threeStars = repeat(3, "*", "");
-const filledRect_3_3 = repeat(3, threeStars, "\n"); 
+const filledRect_3_3 = [threeStars, threeStars, threeStars]; 
 rectangleArgs = {rectangleType: "filled", rectangleWidth: 3, rectangleHeight : 3}; 
 
-assert.equal(generateRectangle(rectangleArgs),filledRect_3_3);
+assert.deepEqual(generateRectangle(rectangleArgs),filledRect_3_3);
 
-const filledRect_3_8 = repeat(8, threeStars, "\n"); 
+const filledRect_3_8 = [threeStars, threeStars, threeStars, threeStars, threeStars, threeStars, threeStars, threeStars];
 rectangleArgs = {rectangleType: "filled", rectangleWidth: 3, rectangleHeight : 8}; 
 
-assert.equal(generateRectangle(rectangleArgs),filledRect_3_8);
+assert.deepEqual(generateRectangle(rectangleArgs),filledRect_3_8);
 
 //--------------------------------------(Empty Rectangle)-------------------------------//
 
-const emptyRect_3_2 = repeat(2, threeStars, "\n");
+const emptyRect_3_2 = ["***","***"];
 rectangleArgs = {rectangleType: "empty", rectangleWidth: 3, rectangleHeight : 2}; 
 
-assert.equal(generateRectangle(rectangleArgs), emptyRect_3_2);
+assert.deepEqual(generateRectangle(rectangleArgs), emptyRect_3_2);
 
-let middle3Rows  = repeat(3, "* *", "\n");
-const emptyRect_3_5 = threeStars + "\n" + middle3Rows + "\n" + threeStars;
+const emptyRect_3_5 = [threeStars, "* *", "* *", "* *", threeStars];
 rectangleArgs = {rectangleType: "empty", rectangleWidth: 3, rectangleHeight : 5}; 
 
-assert.equal(generateRectangle(rectangleArgs), emptyRect_3_5);
+assert.deepEqual(generateRectangle(rectangleArgs), emptyRect_3_5);
 
+let emptyRect_5_6 = [];
 const fiveStars = repeat(5, "*", "");
-let middle4Rows = repeat(4, "*   *", "\n"); 
-const emptyRect_5_6 = fiveStars + "\n" + middle4Rows + "\n" + fiveStars;
+emptyRect_5_6.push(fiveStars);
+emptyRect_5_6.push("*   *", "*   *","*   *","*   *"); 
+emptyRect_5_6.push(fiveStars);
+
 rectangleArgs = {rectangleType: "empty", rectangleWidth: 5, rectangleHeight : 6}; 
 
-assert.equal(generateRectangle(rectangleArgs), emptyRect_5_6);
+assert.deepEqual(generateRectangle(rectangleArgs), emptyRect_5_6);
 
+let emptyRect_8_5 = [];
 const eightStars = repeat(8, "*", "");
-middle3Rows = repeat(3, "*      *", "\n"); 
-const emptyRect_8_5 = eightStars + "\n" + middle3Rows + "\n" + eightStars;
+emptyRect_8_5.push(eightStars);
+emptyRect_8_5.push("*      *", "*      *","*      *"); 
+emptyRect_8_5.push(eightStars);
 rectangleArgs = {rectangleType: "empty", rectangleWidth: 8, rectangleHeight : 5}; 
 
-assert.equal(generateRectangle(rectangleArgs), emptyRect_8_5);
+assert.deepEqual(generateRectangle(rectangleArgs), emptyRect_8_5);
 
 //--------------------------------------(Alternating rectangle)--------------------------------//
 
+let alternateRect_3_5 = [];
 const threeHyphens = repeat(3, "-", ""); 
-let alternateRect_3_5 = threeStars + "\n" + threeHyphens + "\n" + threeStars + "\n" + threeHyphens + "\n" + threeStars;
+alternateRect_3_5.push(threeStars, threeHyphens, threeStars, threeHyphens, threeStars);
+
 rectangleArgs = {rectangleType: "alternating", rectangleWidth: 3, rectangleHeight : 5}; 
 
-assert.equal(generateRectangle(rectangleArgs), alternateRect_3_5);
+assert.deepEqual(generateRectangle(rectangleArgs), alternateRect_3_5);
 
+let alternateRect_5_6 = [];
 const fiveHyphens = repeat(5, "-", "");
-let alternateRect_5_6  = fiveStars + "\n" + fiveHyphens + "\n" + fiveStars 
-alternateRect_5_6 += "\n" + fiveHyphens + "\n" + fiveStars + "\n" +fiveHyphens;
+alternateRect_5_6.push(fiveStars, fiveHyphens, fiveStars); 
+alternateRect_5_6.push(fiveHyphens, fiveStars, fiveHyphens);
+
 rectangleArgs = {rectangleType: "alternating", rectangleWidth: 5, rectangleHeight : 6}; 
 
-assert.equal(generateRectangle(rectangleArgs), alternateRect_5_6);
+assert.deepEqual(generateRectangle(rectangleArgs), alternateRect_5_6);
 
+let alternateRect_8_5 = [];
 const eightHyphens = repeat(8, "-", ""); 
-const alternateRect_8_5  = eightStars + "\n" + eightHyphens + "\n" + eightStars + "\n" + eightHyphens + "\n" + eightStars;
+alternateRect_8_5.push(eightStars, eightHyphens, eightStars, eightHyphens, eightStars);
+
 rectangleArgs = {rectangleType: "alternating", rectangleWidth: 8, rectangleHeight : 5}; 
 
-assert.equal(generateRectangle(rectangleArgs), alternateRect_8_5);
+assert.deepEqual(generateRectangle(rectangleArgs), alternateRect_8_5);
 
 //-----------------------------------------(Left triangle)-------------------------------------------------//
 
+let expectedTriangle = [];
 const twoStars = repeat(2, "*", "");
-let expectedTriangle = oneStar + "\n" + twoStars + "\n" + threeStars;
+expectedTriangle.push(oneStar, twoStars, threeStars);
 triangleArgs = {triangleType: "left", triangleHeight : 3}; 
 
-assert.equal(generateTriangle(triangleArgs), expectedTriangle);
+assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 
+expectedTriangle = [];
 const fourStars = repeat(4, "*", "");
-expectedTriangle = oneStar + "\n" + twoStars + "\n" + threeStars + "\n" + fourStars + "\n" + fiveStars;
+expectedTriangle.push(oneStar, twoStars, threeStars, fourStars, fiveStars);
 triangleArgs = {triangleType: "left", triangleHeight : 5}; 
 
-assert.equal(generateTriangle(triangleArgs), expectedTriangle);
+assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 
 //-----------------------------------------(Right triangle)-------------------------------------------------//
 
-expectedTriangle  = "  *" + "\n"; 
-expectedTriangle += " **" + "\n"; 
-expectedTriangle += "***";
+expectedTriangle = [];
+expectedTriangle.push("  *", " **", "***"); 
 triangleArgs = {triangleType: "right", triangleHeight : 3}; 
 
-assert.equal(generateTriangle(triangleArgs), expectedTriangle);
+assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 
-expectedTriangle  = "    *" + "\n"; 
-expectedTriangle += "   **" + "\n";
-expectedTriangle += "  ***" + "\n";
-expectedTriangle += " ****" + "\n";
-expectedTriangle += "*****";
+expectedTriangle = [];
+expectedTriangle.push( "    *", "   **", "  ***", " ****", "*****");
 triangleArgs = {triangleType: "right", triangleHeight : 5}; 
 
-assert.equal(generateTriangle(triangleArgs), expectedTriangle);
+assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 
 //-----------------------------------------(Filled Diamond)-------------------------------------------------//
 

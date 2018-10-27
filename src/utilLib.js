@@ -1,17 +1,9 @@
-const generateHyphenLine = function(rectangleWidth) {
-  let line = "";
-  for(let charPosition = 0; charPosition < rectangleWidth; charPosition++) {
-    line += "-";
+const repeat = function(times, character) {
+  let repeated = "";
+  for(charPosition = 0; charPosition <= times; charPosition++) {
+    repeated += character;
   }
-  return line;
-}
-
-const generateStarLine = function(rectangleWidth) {
-  let line = "";
-  for(let charPosition = 0; charPosition < rectangleWidth; charPosition++) {
-    line += "*";
-  }
-  return line;
+  return repeated;
 }
 
 const generateEmptyLine = function(rectangleWidth) {
@@ -26,14 +18,6 @@ const generateEmptyLine = function(rectangleWidth) {
   }
 
   return line;
-}
-
-const repeat = function(times, character) {
-  let repeated = "";
-  for(charPosition = 0; charPosition <= times; charPosition++) {
-    repeated += character;
-  }
-  return repeated;
 }
 
 const generateFilledRow = function(rowNum, numOfChars) {
@@ -81,8 +65,6 @@ const readDiamondArgs= function(userArg) {
 
 exports.readRectangleArgs = readRectangleArgs;
 exports.readDiamondArgs = readDiamondArgs;
-exports.generateStarLine = generateStarLine;
-exports.generateHyphenLine = generateHyphenLine;
 exports.generateEmptyLine = generateEmptyLine;
 exports.repeat = repeat;
 exports.generateFilledRow = generateFilledRow;

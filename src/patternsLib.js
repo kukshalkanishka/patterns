@@ -7,22 +7,22 @@ let {generateFilledRow} = lib;
 let {generateHollowRow} = lib;
 
 const generateFilledRect = function(rectangleWidth) {
-  return generateStarLine(rectangleWidth);
+  return repeat(rectangleWidth -1, "*");
 }
 
 const generateEmptyRect = function(lineNumber, rectangleWidth, rectangleHeight) {
 
   let rectangle = generateEmptyLine(rectangleWidth);
   if(lineNumber == 0 ||  lineNumber == rectangleHeight -1) {
-    rectangle = generateStarLine(rectangleWidth);
+    rectangle = repeat(rectangleWidth -1, "*");
   }
   return rectangle;
 }
 
 const generateAlternateRec = function(lineNumber, rectangleWidth, rectangleHeight) {
-  let rectangle = generateStarLine(rectangleWidth);
+  let rectangle = repeat(rectangleWidth -1, "*");
   if(lineNumber % 2 !=0) {
-    rectangle = generateHyphenLine(rectangleWidth);
+    rectangle = repeat(rectangleWidth -1, "-");
   }
   return rectangle;
 }
@@ -45,37 +45,33 @@ const generateSelectedRect = function(rectangleType, rectangleWidth, rectangleHe
 
 
 const generateRectangle = function(rectangleArgs) {
-  let finalRectangle = "";
-  let delimiter = "";
+  let finalRectangle = [];
   let {rectangleType} = rectangleArgs;
   let {rectangleWidth} = rectangleArgs;
   let {rectangleHeight} = rectangleArgs;
 
   for(let lineNumber=0; lineNumber < rectangleHeight; lineNumber++) {
-    finalRectangle += delimiter + generateSelectedRect(rectangleType, rectangleWidth, rectangleHeight, lineNumber); 
-    delimiter = "\n";
+    finalRectangle.push(generateSelectedRect(rectangleType, rectangleWidth, rectangleHeight, lineNumber)); 
   }
   return finalRectangle;
 }
 
 const generateTriangle = function(triangleArgs){
-  let triangle = "";
-  let delimiter = "";
+  let triangle = [];
   let {triangleType} = triangleArgs;
   let {triangleHeight} = triangleArgs;
+  let line = "";
 
   for(let rowNum = 0; rowNum < triangleHeight; rowNum++) {
 
     if(triangleType == "left") {
-      triangle += delimiter + repeat(rowNum,"*");
-      delimiter = "\n"
+      triangle.push(repeat(rowNum,"*"));
     }
 
     if(triangleType == "right") {
       let numOfChars = triangleHeight - (rowNum +2);
-      triangle += delimiter + repeat(numOfChars," ");
-      triangle += repeat(rowNum,"*");
-      delimiter = "\n";
+      line = repeat(numOfChars," ") + repeat(rowNum,"*");
+      triangle.push(line);
     }
   }
 

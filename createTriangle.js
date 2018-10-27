@@ -6,8 +6,10 @@ const {readTriangleArgs} = utilLib;
 const main = function() {
   let userArgs = process.argv;
   let triangleArgs = readTriangleArgs(userArgs);
-  let output = generateTriangle(triangleArgs);
-  console.log(output);
+  let triangle = generateTriangle(triangleArgs);
+  for(row of triangle){
+    console.log(row);
+  }
 }
 
 main();
