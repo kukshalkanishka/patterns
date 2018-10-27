@@ -117,127 +117,67 @@ assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 
 //-----------------------------------------(Filled Diamond)-------------------------------------------------//
 
-let upperHalfDiamond = "  *" + "\n";
-upperHalfDiamond    += " ***";
-
-let lowerHalfDiamond = " ***" + "\n"; 
-lowerHalfDiamond    += "  *";
-
-let expectedDiamond = upperHalfDiamond + "\n" + fiveStars + "\n" + lowerHalfDiamond;
+let expectedDiamond = [];
+expectedDiamond.push("  *", " ***", fiveStars, " ***", "  *");
 diamondArgs = {diamondType: "filled", diamondHeight : 5}; 
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-upperHalfDiamond  = "   *" + "\n"; 
-upperHalfDiamond += "  ***" + "\n"; 
-upperHalfDiamond += " *****";
-
-lowerHalfDiamond =  " *****" + "\n";
-lowerHalfDiamond += "  ***" + "\n";
-lowerHalfDiamond += "   *";
-
+expectedDiamond = [];
 const sevenStars = repeat(7, "*", "");
+expectedDiamond.push ("   *", "  ***", " *****");
+expectedDiamond.push(sevenStars);
+expectedDiamond.push(" *****", "  ***", "   *");
 
-expectedDiamond = upperHalfDiamond + "\n" + sevenStars + "\n" + lowerHalfDiamond;
 diamondArgs = {diamondType: "filled", diamondHeight : 7}; 
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-upperHalfDiamond  = "    *" + "\n";
-upperHalfDiamond += "   ***" + "\n"; 
-upperHalfDiamond += "  *****" + "\n";
-upperHalfDiamond += " *******";
-
-lowerHalfDiamond  = " *******" + "\n";
-lowerHalfDiamond += "  *****" + "\n";
-lowerHalfDiamond += "   ***" + "\n";
-lowerHalfDiamond += "    *";
-
+expectedDiamond = [];
 const nineStars = repeat(9, "*", "");
+expectedDiamond.push("    *", "   ***", "  *****", " *******");
+expectedDiamond.push(nineStars);
+expectedDiamond.push(" *******", "  *****", "   ***", "    *");
 
-expectedDiamond = upperHalfDiamond + "\n" + nineStars + "\n" + lowerHalfDiamond;
 diamondArgs = {diamondType: "filled", diamondHeight : 9}; 
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
 //-----------------------------------------(Hollow Diamond)-------------------------------------------------//
 
-upperHalfDiamond  = "  *" + "\n";
-upperHalfDiamond += " * *";
+expectedDiamond = ["  *", " * *", "*   *", " * *", "  *"];
 
-lowerHalfDiamond  = " * *" + "\n"; 
-lowerHalfDiamond += "  *";
-
-expectedDiamond = upperHalfDiamond + "\n" + "*   *"+ "\n" + lowerHalfDiamond;
 diamondArgs = {diamondType: "hollow", diamondHeight : 5}; 
 
-assert.equal(generateDiamond(diamondArgs),expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs),expectedDiamond);
 
-upperHalfDiamond  = "   *" + "\n"; 
-upperHalfDiamond += "  * *" + "\n"; 
-upperHalfDiamond += " *   *";
-
-lowerHalfDiamond =  " *   *" + "\n";
-lowerHalfDiamond += "  * *" + "\n";
-lowerHalfDiamond += "   *";
-
-expectedDiamond = upperHalfDiamond + "\n" + "*     *" + "\n" + lowerHalfDiamond;
+expectedDiamond = ["   *", "  * *", " *   *","*     *", " *   *", "  * *", "   *"];
 diamondArgs = {diamondType: "hollow", diamondHeight : 7};
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-upperHalfDiamond  = "    *" + "\n";
-upperHalfDiamond += "   * *" + "\n"; 
-upperHalfDiamond += "  *   *" + "\n";
-upperHalfDiamond += " *     *";
-
-lowerHalfDiamond  = " *     *" + "\n";
-lowerHalfDiamond += "  *   *" + "\n";
-lowerHalfDiamond += "   * *" + "\n";
-lowerHalfDiamond += "    *";
-
-expectedDiamond = upperHalfDiamond + "\n" + "*       *" + "\n" + lowerHalfDiamond;
+expectedDiamond = ["    *", "   * *", "  *   *"," *     *","*       *", " *     *", "  *   *", "   * *", "    *"];
 diamondArgs = {diamondType: "hollow", diamondHeight : 9};
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
 //----------------------------------------(Angled diamond)--------------------------------------//
 
-upperHalfDiamond  = "  *" + "\n";
-upperHalfDiamond += " / \\";
+expectedDiamond = [ "  *" ," / \\", "*   *", " \\ /", "  *"];
 
-lowerHalfDiamond = " \\ /" + "\n"; 
-lowerHalfDiamond += "  *";
-
-expectedDiamond = upperHalfDiamond + "\n" + "*   *"+ "\n" + lowerHalfDiamond;
 diamondArgs = {diamondType: "angled", diamondHeight : 5};
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-upperHalfDiamond  = "   *" + "\n"; 
-upperHalfDiamond += "  / \\" + "\n"; 
-upperHalfDiamond += " /   \\";
-
-lowerHalfDiamond =  " \\   /" + "\n";
-lowerHalfDiamond += "  \\ /" + "\n";
-lowerHalfDiamond  += "   *";
-
-expectedDiamond = upperHalfDiamond + "\n" + "*     *" + "\n" + lowerHalfDiamond;
+expectedDiamond = ["   *", "  / \\", " /   \\", "*     *", " \\   /", "  \\ /", "   *"];
 diamondArgs = {diamondType: "angled", diamondHeight : 7};
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-upperHalfDiamond  = "    *" + "\n";
-upperHalfDiamond += "   / \\" + "\n"; 
-upperHalfDiamond += "  /   \\" + "\n";
-upperHalfDiamond += " /     \\";
+expectedDiamond =  ["    *", "   / \\", "  /   \\", " /     \\"];
+expectedDiamond.push("*       *");
+expectedDiamond.push(" \\     /", "  \\   /", "   \\ /", "    *");   
 
-lowerHalfDiamond  = " \\     /" + "\n";
-lowerHalfDiamond += "  \\   /" + "\n";
-lowerHalfDiamond += "   \\ /" + "\n";
-lowerHalfDiamond += "    *";
-
-expectedDiamond = upperHalfDiamond + "\n" + "*       *" + "\n" + lowerHalfDiamond;
 diamondArgs = {diamondType: "angled", diamondHeight : 9};
 
-assert.equal(generateDiamond(diamondArgs), expectedDiamond);
+assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);

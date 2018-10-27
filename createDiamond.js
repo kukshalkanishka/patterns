@@ -6,8 +6,10 @@ const {readDiamondArgs} = utilLib;
 const main = function() {
   let userArgs = process.argv;
   let diamondArgs = readDiamondArgs(userArgs);
-  let output = generateDiamond(diamondArgs);
-  console.log(output);
+  let diamond = generateDiamond(diamondArgs);
+  for(row of diamond) { 
+  console.log(row);
+  }
 }
 
 main();
