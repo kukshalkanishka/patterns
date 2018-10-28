@@ -88,15 +88,14 @@ assert.deepEqual(generateRectangle(rectangleArgs), alternateRect_8_5);
 //-----------------------------------------(Left triangle)-------------------------------------------------//
 
 let expectedTriangle = [];
-const twoStars = repeat(2, "*", "");
-expectedTriangle.push(oneStar, twoStars, threeStars);
+expectedTriangle.push("*  ", "** ", "***");
 triangleArgs = {triangleType: "left", triangleHeight : 3}; 
 
 assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 
 expectedTriangle = [];
 const fourStars = repeat(4, "*", "");
-expectedTriangle.push(oneStar, twoStars, threeStars, fourStars, fiveStars);
+expectedTriangle.push("*    ", "**   ", "***  ", "**** ", "*****");
 triangleArgs = {triangleType: "left", triangleHeight : 5}; 
 
 assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
@@ -118,16 +117,16 @@ assert.deepEqual(generateTriangle(triangleArgs), expectedTriangle);
 //-----------------------------------------(Filled Diamond)-------------------------------------------------//
 
 let expectedDiamond = [];
-expectedDiamond.push("  *", " ***", fiveStars, " ***", "  *");
+expectedDiamond.push("  *  ", " *** ", fiveStars, " *** ", "  *  ");
 diamondArgs = {diamondType: "filled", diamondHeight : 5}; 
 
 assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
 expectedDiamond = [];
 const sevenStars = repeat(7, "*", "");
-expectedDiamond.push ("   *", "  ***", " *****");
+expectedDiamond.push ("   *   ", "  ***  ", " ***** ");
 expectedDiamond.push(sevenStars);
-expectedDiamond.push(" *****", "  ***", "   *");
+expectedDiamond.push(" ***** ", "  ***  ", "   *   ");
 
 diamondArgs = {diamondType: "filled", diamondHeight : 7}; 
 
@@ -135,48 +134,49 @@ assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
 expectedDiamond = [];
 const nineStars = repeat(9, "*", "");
-expectedDiamond.push("    *", "   ***", "  *****", " *******");
+expectedDiamond.push("    *    ", "   ***   ", "  *****  ", " ******* ");
 expectedDiamond.push(nineStars);
-expectedDiamond.push(" *******", "  *****", "   ***", "    *");
+expectedDiamond.push(" ******* ", "  *****  ", "   ***   ", "    *    ");
 
 diamondArgs = {diamondType: "filled", diamondHeight : 9}; 
 
 assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
 //-----------------------------------------(Hollow Diamond)-------------------------------------------------//
-
-expectedDiamond = ["  *", " * *", "*   *", " * *", "  *"];
+//
+expectedDiamond = ["  *  ", " * * ", "*   *", " * * ", "  *  "];
 
 diamondArgs = {diamondType: "hollow", diamondHeight : 5}; 
 
 assert.deepEqual(generateDiamond(diamondArgs),expectedDiamond);
 
-expectedDiamond = ["   *", "  * *", " *   *","*     *", " *   *", "  * *", "   *"];
+expectedDiamond = ["   *   ", "  * *  ", " *   * ","*     *", " *   * ", "  * *  ", "   *   "];
 diamondArgs = {diamondType: "hollow", diamondHeight : 7};
 
 assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-expectedDiamond = ["    *", "   * *", "  *   *"," *     *","*       *", " *     *", "  *   *", "   * *", "    *"];
+expectedDiamond = ["    *    ", "   * *   ", "  *   *  "," *     * ","*       *"];
+expectedDiamond.push(" *     * ", "  *   *  ", "   * *   ", "    *    ");
 diamondArgs = {diamondType: "hollow", diamondHeight : 9};
 
 assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
 //----------------------------------------(Angled diamond)--------------------------------------//
 
-expectedDiamond = [ "  *" ," / \\", "*   *", " \\ /", "  *"];
+expectedDiamond = [ "  *  " ," / \\ ", "*   *", " \\ / ", "  *  "];
 
 diamondArgs = {diamondType: "angled", diamondHeight : 5};
 
 assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-expectedDiamond = ["   *", "  / \\", " /   \\", "*     *", " \\   /", "  \\ /", "   *"];
+expectedDiamond = ["   *   ", "  / \\  ", " /   \\ ", "*     *", " \\   / ", "  \\ /  ", "   *   "];
 diamondArgs = {diamondType: "angled", diamondHeight : 7};
 
 assert.deepEqual(generateDiamond(diamondArgs), expectedDiamond);
 
-expectedDiamond =  ["    *", "   / \\", "  /   \\", " /     \\"];
+expectedDiamond =  ["    *    ", "   / \\   ", "  /   \\  ", " /     \\ "];
 expectedDiamond.push("*       *");
-expectedDiamond.push(" \\     /", "  \\   /", "   \\ /", "    *");   
+expectedDiamond.push(" \\     / ", "  \\   /  ", "   \\ /   ", "    *    ");   
 
 diamondArgs = {diamondType: "angled", diamondHeight : 9};
 

@@ -5,24 +5,23 @@ let {generateEmptyLine} = lib;
 let {repeat} = lib;
 let {generateFilledRow} = lib;
 let {generateHollowRow} = lib;
-
-const generateFilledRect = function(rectangleWidth) {
-  return repeat(rectangleWidth -1, "*");
-}
+let {generateLeftRow} = lib;
+let {generateRightRow} = lib;
+let {justifyRow} = lib;
 
 const generateEmptyRect = function(lineNumber, rectangleWidth, rectangleHeight) {
 
   let rectangle = generateEmptyLine(rectangleWidth);
   if(lineNumber == 0 ||  lineNumber == rectangleHeight -1) {
-    rectangle = repeat(rectangleWidth -1, "*");
+    rectangle = repeat(rectangleWidth , "*");
   }
   return rectangle;
 }
 
 const generateAlternateRec = function(lineNumber, rectangleWidth, rectangleHeight) {
-  let rectangle = repeat(rectangleWidth -1, "*");
+  let rectangle = repeat(rectangleWidth , "*");
   if(lineNumber % 2 !=0) {
-    rectangle = repeat(rectangleWidth -1, "-");
+    rectangle = repeat(rectangleWidth , "-");
   }
   return rectangle;
 }
@@ -31,7 +30,7 @@ const generateSelectedRect = function(rectangleType, rectangleWidth, rectangleHe
   let finalRectangle = "";
   switch (rectangleType){
     case "filled" : 
-    finalRectangle = generateFilledRect(rectangleWidth);
+    finalRectangle = generateFilledRow(rectangleWidth);
       break;
     case "empty": 
     finalRectangle = generateEmptyRect(lineNumber, rectangleWidth, rectangleHeight);
@@ -55,117 +54,93 @@ const generateRectangle = function(rectangleArgs) {
   return finalRectangle;
 }
 
-const generateTriangle = function(triangleArgs){
+const generateSelectedTriangle = function(triangleHeight, generateRow) {
   let triangle = [];
+  for(rowNum = 0; rowNum < triangleHeight; rowNum++){
+    let text = repeat(rowNum +1, "*");
+    let spaceRepition = repeat(triangleHeight - text.length, " "); 
+    row = generateRow(text, spaceRepition);
+    triangle.push(row);
+  }
+  return triangle;
+}
+
+const generateTriangle = function(triangleArgs){
   let {triangleType} = triangleArgs;
   let {triangleHeight} = triangleArgs;
-  let line = "";
+  let row = "";
+  switch(triangleType){
+    case "left" : rowType = generateLeftRow;
+      break;
 
-  for(let rowNum = 0; rowNum < triangleHeight; rowNum++) {
+    default : rowType = generateRightRow; 
+      break;
+  }
+  let triangle = generateSelectedTriangle(triangleHeight, rowType);
+  return triangle;
+}
 
-    switch(triangleType){
-      case "left" :triangle.push(repeat(rowNum,"*"));
-        break;
+const generateUpperAngledRow = function(rowNum, numOfChars) {
+  let row = generateHollowRow(rowNum, "/", "\\")
+  if(rowNum == 1) {
+    row = "*";
+  }
+  return row;
+}
 
-      default : {
-        let numOfChars = triangleHeight - (rowNum +2);
-        line = repeat(numOfChars," ") + repeat(rowNum,"*");
-        triangle.push(line);
+const generateLowerAngleRow = function(rowNum){
+  let row = generateHollowRow(rowNum, "\\", "/")
+  if(rowNum == 1) {
+    row = "*";
+  }
+  return row;
+}
+
+const generateAngledDiamond = function(height) {
+  let middleRow = generateHollowRow(height, "*", "*") ;
+  let diamond = [middleRow];
+
+  for(let rowNum = height-2; rowNum > 0; rowNum -= 2 ) {
+
+    let upperRow = generateUpperAngledRow(rowNum , height);
+    let justifiedRow = justifyRow(upperRow, height);
+    diamond.unshift(justifiedRow);
+    let lowerRow = generateLowerAngleRow(rowNum , height);
+    justifiedRow = justifyRow(lowerRow, height);
+    diamond.push(justifiedRow);
+  }
+
+  return diamond;
+}
+
+const generateDiamond = function(diamondArgs) {
+  let {diamondType} = diamondArgs;
+  let height = diamondArgs.diamondHeight;
+  let diamond = [];
+  let row = "";
+
+  for(let rowNum = -(height -1); rowNum < height; rowNum+=2 ) {
+    switch(diamondType){
+      case "filled" : {
+        row = generateFilledRow(height - Math.abs(rowNum));
       }
         break;
+
+      case "hollow": {
+        row = generateHollowRow(height - Math.abs(rowNum), "*", "*"); 
+      } 
+        break;
     }
+
+    let justifiedRow = justifyRow(row, height);
+    diamond.push(justifiedRow);
+
   }
-
-    return triangle;
+  if (diamondType == "angled") {
+    diamond = generateAngledDiamond(height);
   }
-
-  const generateUpperAngledRow = function(rowNum, numOfChars) {
-    let row = "";
-    let spaceValue = (numOfChars - (rowNum +2));
-    let spaceRepition = repeat(spaceValue/2, " ");
-    let bckSlashRepitition = repeat(0, "/");
-    let frntSlashRepitition = repeat(0, "\\");
-    let rowMiddleGap = repeat(rowNum -2 , " ");
-    let starRepitition = repeat(0,"*");
-    row = spaceRepition+ bckSlashRepitition+ rowMiddleGap+ frntSlashRepitition;
-    if(rowNum == 0) {
-      row = spaceRepition +starRepitition;
-    }
-
-    return row;
-  }
-
-  const generateLowerAngleRow = function(rowNum, numOfChars) {
-    let row = "";
-    let spaceValue = (numOfChars - (rowNum +2));
-    let spaceRepition = repeat(spaceValue/2, " ");
-    let bckSlashRepitition = repeat(0, "/");
-    let frntSlashRepitition = repeat(0, "\\");
-    let rowMiddleGap = repeat(rowNum -2 , " ");
-    let starRepitition = repeat(0,"*");
-    row = spaceRepition + frntSlashRepitition + rowMiddleGap + bckSlashRepitition;
-    if(rowNum == 0) {
-      row = spaceRepition +starRepitition;
-    }
-
-    return row;
-  }
-
-  const generateAngledDiamond = function(height) {
-    let delimiter = "";
-    let upperTriangle = [];
-    let lowerTriangle = [];
-    let middleRow = "";
-    for(let rowNum = 0; rowNum < height -2; rowNum +=2 ) {
-      let upperRow = generateUpperAngledRow(rowNum , height);
-      let lowerRow = generateLowerAngleRow(rowNum , height);
-      upperTriangle.push(upperRow);
-      lowerTriangle.unshift(lowerRow);
-    }
-    middleRow = generateHollowRow(height -1, height) ;
-    upperTriangle.push(middleRow);
-    let diamond = upperTriangle.concat(lowerTriangle);
-    return diamond;
-  }
-
-  const generateDiamond = function(diamondArgs) {
-    let upperTriangle = [];
-    let lowerTriangle = [];
-    let middleRow = "";
-    let diamond = "";
-    let {diamondType} = diamondArgs;
-    let {diamondHeight} = diamondArgs;
-    let row = generateFilledRow(0, diamondHeight);
-
-    for(let rowNum = 0; rowNum < diamondHeight -2; rowNum +=2 ) {
-      switch(diamondType){
-        case "filled" : { 
-          row = generateFilledRow(rowNum , diamondHeight);
-          middleRow = repeat(diamondHeight -1,"*");
-        }
-          break;
-
-        case "hollow": { 
-          row = generateHollowRow(rowNum, diamondHeight);
-          middleRow = generateHollowRow(diamondHeight -1 , diamondHeight); 
-        } 
-          break;
-      }
-
-      upperTriangle.push(row);
-      lowerTriangle.unshift(row);
-    }
-    if(diamondType == "angled") {
-      diamond = generateAngledDiamond(diamondHeight);
-    }
-
-    if(diamondType != "angled"){
-      upperTriangle.push(middleRow);
-      diamond = upperTriangle.concat(lowerTriangle); 
-    }
-
-    return diamond;
-  }
+  return diamond;
+}
 
 exports.generateTriangle = generateTriangle;
 exports.generateDiamond = generateDiamond;

@@ -1,9 +1,5 @@
 const repeat = function(times, character) {
-  let repeated = "";
-  for(charPosition = 0; charPosition <= times; charPosition++) {
-    repeated += character;
-  }
-  return repeated;
+  return new Array(times).fill(character).join("");
 }
 
 const generateEmptyLine = function(rectangleWidth) {
@@ -21,24 +17,15 @@ const generateEmptyLine = function(rectangleWidth) {
 }
 
 const generateFilledRow = function(rowNum, numOfChars) {
-  let row = "";
-  let spaceValue = (numOfChars - (rowNum +2));
-  let spaceRepition = repeat(spaceValue/2, " ");
-  let starRepitition =  repeat(rowNum, "*");
-  row += spaceRepition + starRepitition;
-
+  let row = repeat(rowNum, "*");
   return row;
 }
 
-const generateHollowRow = function(rowNum, numOfChars) {
-  let row = "";
-  let spaceValue = (numOfChars - (rowNum +2));
-  let spaceRepition = repeat(spaceValue/2, " ");
-  let starRepitition = repeat(0, "*");
-  let rowMiddleGap = repeat(rowNum -2 , " ");
-  row = spaceRepition + starRepitition + rowMiddleGap + starRepitition;
-  if(rowNum == 0) {
-    row = spaceRepition +starRepitition;
+const generateHollowRow = function(rowNum, charAtStart, charAtEnd) {
+  let rowMiddleGap = repeat(Math.abs(rowNum -2) , " ");
+  let row = charAtStart  + rowMiddleGap + charAtEnd;
+  if(rowNum == 1) {
+    row = "*";
   }
 
   return row;
@@ -63,6 +50,25 @@ const readDiamondArgs= function(userArg) {
   return {diamondType, diamondHeight};
 }
 
+const generateLeftRow = function(text, spaceRepition) {
+  return text + spaceRepition;
+}
+
+const generateRightRow = function(text, spaceRepition) {
+  return spaceRepition + text;
+}
+
+const justifyRow = function(row, height) {
+  let numOfSpaces = Math.abs(Math.round((height - (row.length))/2));
+  let spaceRepition = repeat(numOfSpaces," ");
+  let justifiedRow = spaceRepition + row + spaceRepition;
+
+  return justifiedRow;
+}
+
+exports.justifyRow = justifyRow;
+exports.generateRightRow = generateRightRow;
+exports.generateLeftRow = generateLeftRow;
 exports.readRectangleArgs = readRectangleArgs;
 exports.readDiamondArgs = readDiamondArgs;
 exports.generateEmptyLine = generateEmptyLine;

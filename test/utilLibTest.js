@@ -16,18 +16,18 @@ assert.equal(generateEmptyLine(10),"*        *");
 
 //=============================(repeat)==============================//
 
-assert.equal(repeat(1, "*"),"**");
-assert.equal(repeat(3, "*"),"****");
-assert.equal(repeat(10, "*"),"***********");
-assert.equal(repeat(1, "-"),"--");
-assert.equal(repeat(3, "-"),"----");
-assert.equal(repeat(10, "-"),"-----------");
+assert.equal(repeat(1, "*"),"*");
+assert.equal(repeat(3, "*"),"***");
+assert.equal(repeat(10, "*"),"**********");
+assert.equal(repeat(1, "-"),"-");
+assert.equal(repeat(3, "-"),"---");
+assert.equal(repeat(10, "-"),"----------");
 
 //=============================(generateFilledRow)====================//
 
-assert.equal(generateFilledRow(1, 5),"  **");
-assert.equal(generateFilledRow(3, 5)," ****");
-assert.equal(generateFilledRow(11, 13)," ************");
+assert.equal(generateFilledRow(1, 5)," *");
+assert.equal(generateFilledRow(3, 5),"***");
+assert.equal(generateFilledRow(11, 13),"***********");
 
 //=============================(generateHollowRow)====================//
 
