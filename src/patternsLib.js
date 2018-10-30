@@ -1,64 +1,51 @@
 const lib = require("./utilLib.js");
-let {generateHyphenLine} = lib;
-let {generateStarLine} = lib;
-let {generateEmptyLine} = lib;
-let {repeat} = lib;
-let {generateFilledRow} = lib;
-let {generateHollowRow} = lib;
-let {generateLeftRow} = lib;
-let {generateRightRow} = lib;
-let {justifyRow} = lib;
+const {generateHyphenLine} = lib;
+const {generateStarLine} = lib;
+const {generateEmptyLine} = lib;
+const {repeat} = lib;
+const {generateFilledRow} = lib;
+const {generateHollowRow} = lib;
+const {generateLeftRow} = lib;
+const {generateRightRow} = lib;
+const {justifyRow} = lib;
+const {generateUpperAngledRow} = lib;
+const {generateLowerAngleRow} = lib;
+const {zip} = lib;
+const {generateEmptyRow} = lib;
+const {generateAlternateRow} = lib;
 
-const generateEmptyRect = function(lineNumber, rectangleWidth, rectangleHeight) {
-
-  let rectangle = generateEmptyLine(rectangleWidth);
-  if(lineNumber == 0 ||  lineNumber == rectangleHeight -1) {
-    rectangle = repeat(rectangleWidth , "*");
-  }
-  return rectangle;
-}
-
-const generateAlternateRec = function(lineNumber, rectangleWidth, rectangleHeight) {
-  let rectangle = repeat(rectangleWidth , "*");
-  if(lineNumber % 2 !=0) {
-    rectangle = repeat(rectangleWidth , "-");
-  }
-  return rectangle;
-}
-
-const generateSelectedRect = function(rectangleType, rectangleWidth, rectangleHeight, lineNumber) {
-  let finalRectangle = "";
-  switch (rectangleType){
+const generateRow = function(type, width, rectangleHeight, rowNum) {
+  let finalRow= "";
+  switch (type){
     case "filled" : 
-    finalRectangle = generateFilledRow(rectangleWidth);
+    finalRow = generateFilledRow(width);
       break;
     case "empty": 
-    finalRectangle = generateEmptyRect(lineNumber, rectangleWidth, rectangleHeight);
+    finalRow = generateEmptyRow(rowNum, width, rectangleHeight);
       break;
     case "alternating" : 
-    finalRectangle = generateAlternateRec(lineNumber, rectangleWidth, rectangleHeight);
+    finalRow = generateAlternateRow(rowNum, width, rectangleHeight);
       break;
   } 
-  return finalRectangle;
+  return finalRow;
 }
 
 const generateRectangle = function(rectangleArgs) {
   let finalRectangle = [];
-  let {rectangleType} = rectangleArgs;
-  let {rectangleWidth} = rectangleArgs;
-  let {rectangleHeight} = rectangleArgs;
-
-  for(let lineNumber=0; lineNumber < rectangleHeight; lineNumber++) {
-    finalRectangle.push(generateSelectedRect(rectangleType, rectangleWidth, rectangleHeight, lineNumber)); 
+  let {type} = rectangleArgs;
+  let {width} = rectangleArgs;
+  let {height} = rectangleArgs;
+  for(let rowNum=0; rowNum < height; rowNum++) {
+    finalRectangle.push(generateRow(type, width, height, rowNum)); 
   }
   return finalRectangle;
 }
 
-const generateSelectedTriangle = function(triangleHeight, generateRow) {
+const generateSelectedTriangle = function(height, generateRow) {
   let triangle = [];
-  for(rowNum = 0; rowNum < triangleHeight; rowNum++){
+  for(rowNum = 0; rowNum < height; rowNum++){
     let text = repeat(rowNum +1, "*");
-    let spaceRepition = repeat(triangleHeight - text.length, " "); 
+    let spaceRepition = repeat(height - text.length, " "); 
     row = generateRow(text, spaceRepition);
     triangle.push(row);
   }
@@ -66,34 +53,18 @@ const generateSelectedTriangle = function(triangleHeight, generateRow) {
 }
 
 const generateTriangle = function(triangleArgs){
-  let {triangleType} = triangleArgs;
-  let {triangleHeight} = triangleArgs;
+  let {type} = triangleArgs;
+  let {height} = triangleArgs;
   let row = "";
-  switch(triangleType){
+  switch(type){
     case "left" : rowType = generateLeftRow;
       break;
 
     default : rowType = generateRightRow; 
       break;
   }
-  let triangle = generateSelectedTriangle(triangleHeight, rowType);
+  let triangle = generateSelectedTriangle(height, rowType);
   return triangle;
-}
-
-const generateUpperAngledRow = function(rowNum, numOfChars) {
-  let row = generateHollowRow(rowNum, "/", "\\")
-  if(rowNum == 1) {
-    row = "*";
-  }
-  return row;
-}
-
-const generateLowerAngleRow = function(rowNum){
-  let row = generateHollowRow(rowNum, "\\", "/")
-  if(rowNum == 1) {
-    row = "*";
-  }
-  return row;
 }
 
 const generateAngledDiamond = function(height) {
@@ -114,13 +85,13 @@ const generateAngledDiamond = function(height) {
 }
 
 const generateDiamond = function(diamondArgs) {
-  let {diamondType} = diamondArgs;
-  let height = diamondArgs.diamondHeight;
+  let {type} = diamondArgs;
+  let height = diamondArgs.height;
   let diamond = [];
   let row = "";
 
   for(let rowNum = -(height -1); rowNum < height; rowNum+=2 ) {
-    switch(diamondType){
+    switch(type){
       case "filled" : {
         row = generateFilledRow(height - Math.abs(rowNum));
       }
@@ -136,12 +107,25 @@ const generateDiamond = function(diamondArgs) {
     diamond.push(justifiedRow);
 
   }
-  if (diamondType == "angled") {
+  if (type == "angled") {
     diamond = generateAngledDiamond(height);
   }
   return diamond;
 }
 
+const mergePatterns = function(patternsArgs) {
+  const {pattern1type, pattern2type,
+         pattern1height, pattern2height, 
+         pattern1width, pattern1, pattern2,
+         pattern2width} = patternsArgs;
+  let func1 = generateRectangle;
+  let func2 = generateTriangle;
+  let output1 = func1({type : pattern1type, width : +pattern1width, height: +pattern1height});
+  let output2 = func2({type : pattern2type, width : +pattern2width, height: +pattern2height});
+  return zip(output1, output2);
+}
+
 exports.generateTriangle = generateTriangle;
 exports.generateDiamond = generateDiamond;
 exports.generateRectangle = generateRectangle;
+exports.mergePatterns = mergePatterns;

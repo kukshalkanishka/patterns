@@ -9,15 +9,13 @@ const generateEmptyLine = function(rectangleWidth) {
     if(charPosition == 0 || charPosition == rectangleWidth -1){
       character = "*";
     } 
-
     line += character;
   }
-
   return line;
 }
 
-const generateFilledRow = function(rowNum, numOfChars) {
-  let row = repeat(rowNum, "*");
+const generateFilledRow = function(width) {
+  let row = repeat(width, "*");
   return row;
 }
 
@@ -32,22 +30,39 @@ const generateHollowRow = function(rowNum, charAtStart, charAtEnd) {
 }
 
 const readTriangleArgs = function(userArg){ 
-  let triangleType = userArg[2];
-  let triangleHeight = +userArg[3];
-  return {triangleType, triangleHeight};
+  let type = userArg[2];
+  let height = +userArg[3];
+  return {type, height};
 }
 
 const readRectangleArgs = function(userArg) {
-  let rectangleType = userArg[2];
-  let rectangleWidth = +userArg[3];
-  let rectangleHeight = +userArg[4];
-  return {rectangleType, rectangleWidth, rectangleHeight};
+  let type = userArg[2];
+  let width = +userArg[3];
+  let height = +userArg[4];
+  return {type, height, width};
 }
 
 const readDiamondArgs= function(userArg) {
-  let diamondType = userArg[2];
-  let diamondHeight = +userArg[3];
-  return {diamondType, diamondHeight};
+  let type = userArg[2];
+  let height = +userArg[3];
+  return {type, height};
+}
+
+const readArgs = function(userArg) { 
+  let output = {};
+  let pattern1Detail = userArg[2].split("_");
+  let pattern1 = pattern1Detail[1];
+  output.pattern1 = pattern1;
+  if(pattern1 == "rectangle"){
+    output.pattern1type = pattern1Detail[0]; 
+    output.pattern1width = userArg[3];
+    output.pattern1height = userArg[4];
+    let pattern2Detail = userArg[5].split("_");
+    output.pattern2 = pattern2Detail[1];
+    output.pattern2type = pattern2Detail[0]; 
+    output.pattern2height = userArg[6];
+  }
+  return output;
 }
 
 const generateLeftRow = function(text, spaceRepition) {
@@ -65,7 +80,54 @@ const justifyRow = function(row, height) {
 
   return justifiedRow;
 }
+const generateUpperAngledRow = function(rowNum, numOfChars) {
+  let row = generateHollowRow(rowNum, "/", "\\")
+  if(rowNum == 1) {
+    row = "*";
+  }
+  return row;
+}
 
+const generateLowerAngleRow = function(rowNum){
+  let row = generateHollowRow(rowNum, "\\", "/")
+  if(rowNum == 1) {
+    row = "*";
+  }
+  return row;
+}
+
+const zip = function(list1,list2) {
+  let zippedElements = [];
+  let highestIndex = Math.min(list1.length, list2.length);
+  for(let index = 0; index< highestIndex; index++) {
+    zippedElements[index] = [list1[index], list2[index]];
+  }
+
+  return zippedElements;
+}
+
+const generateEmptyRow = function(rowNum, width, height) {
+
+  let row = generateEmptyLine(width);
+  if(rowNum == 0 ||  rowNum ==  height -1) {
+    row = repeat(width , "*");
+  }
+  return row;
+}
+
+const generateAlternateRow = function(rowNum, width) {
+  let row = repeat(width , "*");
+  if(rowNum % 2 !=0) {
+    row = repeat(width , "-");
+  }
+  return row;
+}
+
+exports.generateEmptyRow = generateEmptyRow;
+exports.generateAlternateRow = generateAlternateRow;
+exports.zip = zip;
+exports.generateUpperAngledRow = generateUpperAngledRow;
+exports.generateLowerAngleRow = generateLowerAngleRow;
 exports.justifyRow = justifyRow;
 exports.generateRightRow = generateRightRow;
 exports.generateLeftRow = generateLeftRow;
@@ -76,3 +138,4 @@ exports.repeat = repeat;
 exports.generateFilledRow = generateFilledRow;
 exports.generateHollowRow = generateHollowRow; 
 exports.readTriangleArgs = readTriangleArgs;
+exports.readArgs = readArgs;
