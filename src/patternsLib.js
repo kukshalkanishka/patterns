@@ -113,13 +113,26 @@ const generateDiamond = function(diamondArgs) {
   return diamond;
 }
 
+const selectGenerator = function(patternName){
+  let generator = "";
+  switch (patternName) {
+    case "rectangle" : generator = generateRectangle;
+      break;
+    case "triangle" : generator = generateTriangle;
+      break;
+    case "diamond" : generator = generateDiamond;
+      break;
+  }
+  return generator;
+}
+
 const mergePatterns = function(patternsArgs) {
   const {pattern1type, pattern2type,
          pattern1height, pattern2height, 
          pattern1width, pattern1, pattern2,
          pattern2width} = patternsArgs;
-  let func1 = generateRectangle;
-  let func2 = generateTriangle;
+  let func1 = selectGenerator(pattern1);
+  let func2 = selectGenerator(pattern2);
   let output1 = func1({type : pattern1type, width : +pattern1width, height: +pattern1height});
   let output2 = func2({type : pattern2type, width : +pattern2width, height: +pattern2height});
   return zip(output1, output2);
